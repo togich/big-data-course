@@ -124,3 +124,48 @@ HDFS Architecture
 
 Лицензия
 Датасет MIMIC-IV распространяется под лицензией ODC Open Database License (ODbL). Подробности в LICENSE.txt.
+
+## Датасет
+
+**MIMIC-IV Clinical Database Demo (версия 2.2)**
+
+- **Источник:** [PhysioNet](https://physionet.org/content/mimic-iv-demo/2.2/)
+- **DOI:** [10.13026/dp1f-ex47](https://doi.org/10.13026/dp1f-ex47)
+- **Лицензия:** [ODC Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/1-0/)
+- **Содержимое:** 100 деидентифицированных пациентов из Beth Israel Deaconess Medical Center (2008–2019)
+
+### Что внутри
+
+| Папка | Файлов | Что содержит |
+|-------|--------|--------------|
+| `hosp/` | 22 | Госпитальные данные (лаборатория, назначения, диагнозы) |
+| `icu/` | 9 | Данные отделения интенсивной терапии (мониторинг, события) |
+| корень | 4 | Метаданные (`LICENSE.txt`, `README.txt`, `demo_subject_id.csv`, `SHA256SUMS.txt`) |
+
+### Как скачать
+
+1. Зарегистрируйтесь на [PhysioNet](https://physionet.org/register/)
+2. Пройдите обучение CITI (Data or Specimens Only Research)
+3. Подпишите соглашение об использовании данных
+4. Скачайте `mimic-iv-clinical-database-demo-2.2.zip` со [страницы датасета](https://physionet.org/content/mimic-iv-demo/2.2/)
+5. Распакуйте в `/content/mimic-iv-clinical-database-demo-2.2/` в Colab
+
+### Почему датасет не в репозитории
+
+Датасет **не коммитится** в GitHub по двум причинам:
+
+1. **Лицензия ODbL** — требует указания источника и не допускает бесконтрольного распространения [citation:12][citation:16]
+2. **Размер** — 697 МБ, превышает разумные лимиты для Git
+
+В `.gitignore` добавлено:
+
+```gitignore
+# MIMIC-IV данные (не коммитить)
+mimic-iv-clinical-database-demo-*/
+*.csv.gz
+*.tar.gz
+hadoop_data/
+
+
+ссылка для цитирования
+Johnson, A., Bulgarelli, L., Pollard, T., Horng, S., Celi, L. A., & Mark, R. (2023). MIMIC-IV Clinical Database Demo (version 2.2). PhysioNet. RRID:SCR_007345. https://doi.org/10.13026/dp1f-ex47
