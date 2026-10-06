@@ -66,3 +66,61 @@ hdfs dfs -get /mimic/demo/raw/hosp/patients.csv.gz ./check.csv.gz
 
 # Сверить SHA256
 sha256sum ./check.csv.gz
+Запуск HDFS без SSH
+В Colab start-dfs.sh не работает из-за конфликта портов и отсутствия SSH. Используйте прямой запуск демонов:
+
+python
+!/content/hadoop-3.3.6/bin/hdfs --daemon start namenode
+!/content/hadoop-3.3.6/bin/hdfs --daemon start datanode
+!jps
+Ожидаемый результат: NameNode, DataNode, Jps.
+
+Структура HDFS
+text
+/mimic/demo/
+├── meta/              # метаданные (4 файла)
+│   ├── LICENSE.txt
+│   ├── README.txt
+│   ├── demo_subject_id.csv
+│   └── SHA256SUMS.txt
+├── raw/
+│   ├── hosp/          # 22 файла
+│   └── icu/           # 9 файлов
+├── processed/         # для обработанных данных
+└── results/           # для результатов анализа
+Контрольные вопросы
+Чем hdfs dfs -ls отличается от ls?
+
+Сколько файлов в hosp/ и icu/?
+
+Почему demo_subject_id.csv в meta/, а не в raw/?
+
+Что произойдёт при отказе DataNode?
+
+Почему блок 128 МБ, а не 1 МБ?
+
+Критерии оценивания
+Критерий	Баллы
+Структура /mimic/demo	2
+Все файлы загружены	2
+Анализ блоков и реплик	2
+Сверка SHA256	2
+Python-скрипт	1
+Защита	1
+Итого	10
+Частые проблемы
+Ошибка	Причина	Решение
+Connection refused	HDFS не запущен	Запустить NameNode и DataNode
+DataNode не в jps	Упал или не запустился	Посмотреть логи, переформатировать
+File exists	Файл уже в HDFS	Норма, использовать -put -f
+No such file	Неверный путь в HDFS	Проверить resolve_hdfs_path
+Port 9000 in use	Порт занят jupyter	Использовать порт 9001
+Полезные ссылки
+MIMIC-IV на PhysioNet
+
+Apache Hadoop
+
+HDFS Architecture
+
+Лицензия
+Датасет MIMIC-IV распространяется под лицензией ODC Open Database License (ODbL). Подробности в LICENSE.txt.
